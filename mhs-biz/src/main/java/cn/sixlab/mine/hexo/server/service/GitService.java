@@ -11,11 +11,14 @@
  */
 package cn.sixlab.mine.hexo.server.service;
 
-import org.springframework.stereotype.Service;
+import cn.sixlab.mine.hexo.server.util.CommandUtil;
 
-@Service
+import java.io.IOException;
+
+//@Service
 public class GitService {
-    public void pull(String path) {
     
+    public void pull(String path)  {
+        CommandUtil.run("git pull", path);
     }
 }

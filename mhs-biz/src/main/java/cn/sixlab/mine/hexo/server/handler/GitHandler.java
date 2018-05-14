@@ -12,10 +12,14 @@
 package cn.sixlab.mine.hexo.server.handler;
 
 import cn.sixlab.mine.hexo.server.service.GitService;
+import cn.sixlab.mine.hexo.server.util.CommandUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/git")
@@ -23,11 +27,15 @@ public class GitHandler {
     @Autowired
     private GitService service;
     
+    @Value("${gitDir}")
+    private String gitDir;
+    
     @ResponseBody
-    @RequestMapping("/pull")
-    public String pull(String path) {
-        
-        service.pull(path);
+    @RequestMapping("/update")
+    public String update() throws IOException, InterruptedException {
+    
+        CommandUtil.run("git pull", gitDir);
+        CommandUtil.run("hexo g", gitDir);
         
         return "";
     }

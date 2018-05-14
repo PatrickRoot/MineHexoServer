@@ -13,3 +13,5 @@ spring:
         content:
           enabled: true
           paths: /**
+
+gitDir: /var/www/blogs
